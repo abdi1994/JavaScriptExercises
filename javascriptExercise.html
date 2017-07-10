@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+<p> Javascript Exercise 1 </p>
+
+<script = "Coding Challenge 1"> 
+	  var myVariableChallenge1 = 1
+
+	  document.write(myVariableChallenge1)
+	  window.alert(myVariableChallenge1)
+	  console.log(myVariableChallenge1)
+	  
+	  function squareOfNumber(num1) {
+	  	  return num1 * num1;
+	  }
+
+	  function sumOfValues(num1, num2, num3) {
+	  	  return num1 + num2 + num3
+	  }
+
+	  var personObject = {
+	  	  name: "Test",
+		  age: 22,
+		  occupation: "Test1",
+	  }
+
+
+	  
+	  function outputPerson() {
+	  	  console.log(personObject.name)
+		  console.log(personObject.age)
+		  console.log(personObject.occupation)
+	  }
+
+
+	  function updatePersonDetail(variableUpdate, newDetail) {
+		switch(variableUpdate) {
+			case 'occupation' : personObject.occupation = newDetail
+			break;
+			case 'name' : personObject.name = newDetail
+			break;
+			case 'age' : personObject.age = newDetail
+			break;
+		}
+	  }
+
+	  function increaseAge() {
+	  	  personObject.age += 1
+		  console.log(personObject.age)
+	  }
+
+	  var quote = "He said 'My name is elliot'"
+
+	  function stringToUpper() {
+	  var res = quote.toUpperCase();
+	  	  console.log(res)
+	  }
+
+	  var myList = ['Test1','Test2','Test3'];
+
+	  function printArray() {
+	  	  console.log(myList)
+	  }
+
+	  function addToArray() {
+	  myList[myList.length] = 'NewToArrayTest4'
+	  }
+
+	  function removeLastArray() {
+	  	  myList.splice(myList.length - 1 ,1)
+	  }
+
+	  function ageChecker() {
+	  	  if(personObject.age >= 20 && personObject.age <= 40) {
+		  	  console.log(personObject.name)
+		  }
+	  }
+
+	  function fizzBuzz() {
+	  for(var x = 0; x < 100; x++)
+	  {
+	  	  if(x % 3 == 0 && x % 5 == 0) {
+		  	  console.log("FizBuzzz")
+		  }
+		  else if(x % 3 == 0) {
+		  	  console.log("Fizz")
+		  }
+		  else if(x % 5 == 0) {
+			  console.log("Buzz")
+		  }
+		  else {
+		  	  console.log(x)
+		  }
+	  }
+	  }
+
+	  function reachTarget() {
+	  var x = Math.floor((Math.random() * 10000) + 1);
+
+	  while(x != 1) {
+	  if (x % 3 == 0) {
+	  	  x = x / 3
+		  console.log(x)
+	  }
+	  else if(x % 3 >= 4) {
+	  x--
+	  }
+	  else if(x % 3 <= 2) {
+	  x++
+	  }
+
+	  }
+	  }
+
+	  function createParagraphTag() {
+	  var x = document.createElement("paragraphTag")
+	  x.setAttribute("test1", "paragraphTag")
+	  var appending = document.getElementById("test1")
+	  appending.appendChild(x)
+	  }
+
+
+
+
+	  </script>
+<p> Javascript Exercise 2 </p> 
+<form> 
+<input type="button" onclick="increaseAge()" value="Age Increase" />
+</form> 
+
+<form> 
+<input type="button" onclick="outputPerson()" value="Function" />
+</form> 
+
+<p> Javascript Exercise 3 </p> 
+ <form> 
+<input type="button" onclick="stringToUpper()" value="toUpperCase" />
+</form> 
+ <form> 
+<input type="button" onclick="printArray()" value="Array" />
+</form> 
+ <form> 
+<input type="button" onclick="addToArray()" value="AddToArray" />
+</form> 
+ <form> 
+<input type="button" onclick="removeLastArray()" value="RemoveFromArray" />
+</form> 
+
+<p> Javascript Exercise 4 </p> 
+ <form> 
+<input type="button" onclick="ageChecker()" value="Age Checker" />
+</form> 
+
+<p> Javascript Exercise 5 </p> 
+ <form> 
+<input type="button" onclick="fizzBuzz()" value="Fizz Buzz" />
+</form>
+
+<p> Javascript Exercise 6 </p> 
+ <form> 
+<input type="button" onclick="reachTarget()" value="Reach Target" />
+</form>
+
+<p> Javascript Exercise 7 </p> 
+ <form> 
+<input type="button" onclick="createParagraphTag()" value="Create Paragraph Tag" />
+</form>
+
+
+</body>
+</html>

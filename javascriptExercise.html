@@ -13,8 +13,8 @@
 	  var myVariableChallenge1 = 1
 
 	  document.write(myVariableChallenge1)
-	  window.alert(myVariableChallenge1)
-	  console.log(myVariableChallenge1)
+	  //window.alert(myVariableChallenge1)
+	  //console.log(myVariableChallenge1)
 	  
 	  function squareOfNumber(num1) {
 	  	  return num1 * num1;
@@ -120,10 +120,72 @@
 
 	  function createParagraphTag() {
 	  var x = document.createElement("paragraphTag")
+	  x.setAttribute("test1", "x")
+	  var example = document.getElementById("demo")
+	  example.appendChild(x)
+	  }
+
+
+	  function updateParagraphTag() {
+
+	  }
+
+
+	  function deleteParagraphTag() {
+	  var x = document.createElement("paragraphTag")
 	  x.setAttribute("test1", "paragraphTag")
 	  var appending = document.getElementById("test1")
 	  appending.appendChild(x)
 	  }
+
+
+	  function jsonFunction() {
+	  	  var requestURL = 'https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/example.json'; 
+
+		  var request = new XMLHttpRequest(); 
+		  request.open('GET', requestURL);
+		  request.responseType = 'json' 
+		  request.send(); 
+
+		  request.onload = function() { 
+		  var superHeroes = request.response; 
+		  console.log(superHeroes)
+		  superHeroes.members.forEach(function(element){console.log(element);})
+		  }
+
+
+	  }
+
+
+	  function jsonFunction2(json) {
+	  	  var requestURL = 'https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/example.json'; 
+
+		  var request = new XMLHttpRequest(); 
+		  request.open('GET', requestURL);
+		  request.responseType = 'json' 
+		  request.send(); 
+
+		  request.onload = function() { 
+		  var superHeroes = request.response; 
+		  //console.log(superHeroes)
+		  superHeroes[json].forEach(function(element){console.log(element);})
+		  }
+
+
+	  }
+
+
+	  var carList = [];
+
+	  function garageList() {
+	  	  console.log(carList)
+	  }
+
+	  function addCar() {
+	  
+	  }
+
+
 
 
 
@@ -170,6 +232,35 @@
 <p> Javascript Exercise 7 </p> 
  <form> 
 <input type="button" onclick="createParagraphTag()" value="Create Paragraph Tag" />
+</form>
+ <form> 
+<input type="button" onclick="updateParagraphTag()" value="Update Paragraph Tag" />
+</form>
+ <form> 
+<input type="button" onclick="deleteParagraphTag()" value="Delete Paragraph Tag" />
+</form>
+
+<p> Javascript Exercise 8 </p> 
+ <form> 
+<input type="button" onclick="jsonFunction()" value="JSON request" />
+</form>
+
+<p> Javascript Exercise 9 </p> 
+ <form> 
+ <input type="text" name="json">
+
+<input type="button" onclick="jsonFunction2(json.value)" value="JSON request 2" />
+</form>
+
+<p> Javascript Exercise 10 </p> 
+ <form> 
+ <input type="text" name="carText" placeholder="Car">
+ <input type="text" name="repairCostText" placeholder="Repair Cost">
+ <input type="text" name="amountOfFaultsText" placeholder="Number of Faults">
+ </form>
+  <form> 
+<input type="button" onclick="addCar" value="Add Car" />
+<input type="button" onclick="garageList()" value="Garage list" />
 </form>
 
 

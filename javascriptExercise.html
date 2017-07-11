@@ -101,21 +101,26 @@
 	  }
 
 	  function reachTarget() {
+	  var z = 0;
 	  var x = Math.floor((Math.random() * 10000) + 1);
 
 	  while(x != 1) {
 	  if (x % 3 == 0) {
 	  	  x = x / 3
 		  console.log(x)
+		  z++
 	  }
 	  else if(x % 3 >= 4) {
 	  x--
+	 // z++
 	  }
 	  else if(x % 3 <= 2) {
 	  x++
+	  //z++
 	  }
 
 	  }
+	  console.log("Number of attempts: " + z)
 	  }
 
 	  function createParagraphTag() {
@@ -176,15 +181,79 @@
 
 
 	  var carList = [];
+	  var id = 0;
+	  var repairCar
+	  var RepairCar
+	  var numberOfRepair
 
-	  function garageList() {
-	  	  console.log(carList)
+
+
+
+	  function createCarForRepair() {
+	  
+	  repairCar= document.getElementsByName("carText")[0].value;
+	  RepairCar= document.getElementsByName("repairCostText")[0].value;
+	  numberOfRepair= document.getElementsByName("amountOfFaultsText")[0].value;
+
+
+	  if(numberOfRepair === 0) {
+	  	  console.log("No issues")
 	  }
+	  else {
 
-	  function addCar() {
+	  var Car = {
+	  	  carID: id,
+		  car: repairCar,
+		  repairCost: RepairCar,
+		  noRepair: numberOfRepair,
+	  }
+	  addCarToGarage(Car)
+	  console.log("...")
 	  
 	  }
 
+	  id++
+
+	  }
+
+	  function addCarToGarage(Car) {
+	  carList.push(Car)
+	  console.log("New car added to the garage")
+	  }
+
+	  function garageList() {
+	  	  carList.forEach(function(test){console.log(test);})
+	  }
+
+	  function removeCar(ID) {
+	  	  carList.splice(ID, 1);
+		  console.log("Car removed")
+	  }
+
+	  function emptyGarage() {
+	  	  carList.splice(0, carList.length);
+		  console.log("Garage emptied")
+	  }
+
+
+	  function commandInterface(commandText) {
+	  
+	  var stringSplit = commandText.split(" ");
+	  
+	  switch(stringSplit[0]) {
+	  	  case 'add' : createCarForRepaid();
+		  break;
+		  case 'output' : garageList();
+		  break;
+		  case 'check out' : removeCar(stringSplit[2]);
+		  break;
+		  case 'empty' : emptyGarage();
+		  break;
+		  default: console.log("Unknown Command Try Again!!!")
+	  }
+
+
+	  }
 
 
 
@@ -259,10 +328,24 @@
  <input type="text" name="amountOfFaultsText" placeholder="Number of Faults">
  </form>
   <form> 
-<input type="button" onclick="addCar" value="Add Car" />
+<input type="button" onclick="createCarForRepair()" value="Add Car" />
 <input type="button" onclick="garageList()" value="Garage list" />
 </form>
+<form> 
+<input type="text" name="removeCarID" placeholder="ID for car to remove">
+<input type="button" onclick="removeCar(removeCarID.value)" value="Remove Car" />
+</form>
 
+ <form> 
+<input type="button" onclick="emptyGarage()" value="Empty Garage" />
+</form>
+
+
+<p> Javascript Exercise 10 </p> 
+<form> 
+<input type="text" name="interfaceCommand" placeholder="Enter Command">
+<input type="button" onclick="commandInterface(interfaceCommand.value)" value="Submit" />
+</form>
 
 </body>
 </html>

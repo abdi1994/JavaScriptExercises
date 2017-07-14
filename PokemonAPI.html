@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+<p> Javascript Exercise 1 </p>
+
+<script = "Pokemon type api"> 
+
+//Function that should be used is pokemon() not pokemon2() however they both work but pokemon() is more efficient and cutdown version to be more precise
+
+	  function pokemon(attacker, defender) {
+	  	  var defPok = defender.split(" ");
+		  var atPok = attacker.split(" ");
+		  var totalPokemonDamage = 0;
+
+		  atPok.forEach(function(atPok){
+		  console.log("entered for each atk")
+		  var requestURL = 'http://pokeapi.co/api/v2/type/' + atPok;
+		  var request = new XMLHttpRequest(); 
+		  request.open('GET', requestURL);
+		  request.responseType = 'json' 
+		  request.send(); 
+		  request.onload = function() { 
+		  var urlResponse = request.response;
+
+		  	defPok.forEach((defPok)=>{
+				  console.log("entered for each def")
+			  	totalPokemonDamage += urlResponse.damage_relations.half_damage_to.filter((obj)=>defPok==obj.name).length * 0.5
+			  	//totalPokemonDamage += urlResponse.damage_relations.no_damage_to.filter((obj)=>defPok==obj.name).length * 0
+			  	totalPokemonDamage += urlResponse.damage_relations.double_damage_to.filter((obj)=>defPok==obj.name).length * 2
+		  	})
+
+		console.log("Damage multiplier:- " + totalPokemonDamage)
+		  }
+		  })
+	  }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	  function pokemon2(attacker, defender,callback) {
+	  	  var defPok = defender.split(" ");
+		  var atPok = attacker.split(" ");
+		  var pokemonDamage = 0;
+		  var totalPokemonDamage = 0;
+		  var requestURL = 'http://pokeapi.co/api/v2/type/' + atPok;
+		  var request = new XMLHttpRequest(); 
+		  request.open('GET', requestURL);
+		  request.responseType = 'json' 
+		  request.send(); 
+
+
+		  defPok.forEach(function(defPok){
+		  request.onload = function() { 
+		  var urlResponse = request.response;
+
+		  atPok.forEach(function(atPok){
+			  urlResponse.damage_relations.half_damage_from.forEach((test2) => {if (atPok == test2.name) {pokemonDamage = 0.5}})
+			  urlResponse.damage_relations.no_damage_from.forEach((test2) => {if(atPok === test2.name) {pokemonDamage = 0}})
+			  urlResponse.damage_relations.double_damage_from.forEach((test2) => {if(atPok === test2.name) {pokemonDamage = 2}})
+			  totalPokemonDamage += pokemonDamage;
+
+		  })
+
+		callback("Damage multiplier:- " + totalPokemonDamage); 
+
+		  }
+
+		  })
+
+	  }
+	  pokemon2("fire","water",(a)=> console.log(a))
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+</script>
+
+<p> Pokemon Game </p> 
+<form> 
+<input type="text" name="attacker" placeholder="Attacker">
+<input type="text" name="defender" placeholder="Defender">
+<input type="button" onclick="pokemon(attacker.value, defender.value)" value="Run" />
+</form>
+
+<p> Pokemon Game version 2 </p> 
+<form> 
+<input type="text" name="attacker" placeholder="Attacker">
+<input type="text" name="defender" placeholder="Defender">
+<input type="button" onclick="pokemon2(attacker.value, defender.value)" value="Run" />
+</form>
+</body>
+</html>

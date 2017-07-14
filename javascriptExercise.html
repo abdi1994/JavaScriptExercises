@@ -10,6 +10,10 @@
 <p> Javascript Exercise 1 </p>
 
 <script = "Coding Challenge 1"> 
+		var tester = {}
+		a=5
+		//Shorthand if statement
+		console.log(a == 5 ? 1 : 3)
 	  var myVariableChallenge1 = 1
 
 	  document.write(myVariableChallenge1)
@@ -17,10 +21,13 @@
 	  //console.log(myVariableChallenge1)
 	  
 	  function squareOfNumber(num1) {
+		  console.log("The square number of " + num1 + " is " + num1 * num1)
 	  	  return num1 * num1;
 	  }
 
 	  function sumOfValues(num1, num2, num3) {
+		  var x =parseInt(num1) + parseInt(num2) + parseInt(num2)
+		  console.log("Sum of the 3 numbers is: " + x)
 	  	  return num1 + num2 + num3
 	  }
 
@@ -100,9 +107,9 @@
 	  }
 	  }
 
-	  function reachTarget() {
+	  function reachTarget(num1) {
 	  var z = 0;
-	  var x = Math.floor((Math.random() * 10000) + 1);
+	  var x = num1
 
 	  while(x != 1) {
 	  if (x % 3 == 0) {
@@ -256,11 +263,126 @@
 	  }
 
 
+	  function rektangle(input, number) {
+	  var w = 0;
+	  var z = input.lenght * number;
 
+	  if(w === 0 || w === input.length) {
+	  	  document.write(input + "<br>")
+		  number++
+		  w++
+	  }
+	  else {
+	  document.write(input + "<br>")
+	  w++
+	  }
+
+	  }
+
+
+	  function test(input, number) {
+	  
+
+
+
+	  }
+
+
+	  function pokemon(attacker, defender) {
+	  	  var defPok = defender.split(" ");
+		  var atPok = attacker.split(" ");
+		  var totalPokemonDamage = 0;
+
+		  atPok.forEach(function(atPok){
+		  //check if the atkpok exists in the tester object
+		  //if it does sift through that
+		  if(tester[atPok]) {
+
+			  totalPokemonDamage = calMultiplier(tester[atPok],defPok);
+			  console.log("Damage multiplier:- " + totalPokemonDamage)
+		  }else{
+		  	//else do this way
+		  	var requestURL = 'http://pokeapi.co/api/v2/type/' + atPok;
+		  	var request = new XMLHttpRequest(); 
+		  	request.open('GET', requestURL);
+		  	request.responseType = 'json' 
+		  	request.send(); 
+		  	request.onload = function() { 
+		  	var urlResponse = request.response;
+		  	tester[atPok] = urlResponse
+		  	totalPokemonDamage = calMultiplier(urlResponse, defPok);
+			  console.log("Damage multiplier:- " + totalPokemonDamage)
+		  }
+
+		  
+		
+		  }
+		  
+		  })
+	  }
+		function calMultiplier(res,defPok){
+			totalPokemonDamage = 0 ;
+		  	defPok.forEach((defPok)=>{
+			  	totalPokemonDamage += res.damage_relations.half_damage_to.filter((obj)=>defPok==obj.name).length * 0.5
+			  	//totalPokemonDamage += urlResponse.damage_relations.no_damage_to.filter((obj)=>defPok==obj.name).length * 0
+			  	totalPokemonDamage += res.damage_relations.double_damage_to.filter((obj)=>defPok==obj.name).length * 2
+		  	})
+			  return totalPokemonDamage;
+		  }
+
+
+	  //---------------------------------------------------------------------------------------------------------------------------------------
+
+	  function pokemon2(attacker, defender,callback) {
+	  	  var defPok = defender.split(" ");
+		  var atPok = attacker.split(" ");
+		  var pokemonDamage = 0;
+		  var totalPokemonDamage = 0;
+		  var requestURL = 'http://pokeapi.co/api/v2/type/' + atPok;
+		  var request = new XMLHttpRequest(); 
+		  request.open('GET', requestURL);
+		  request.responseType = 'json' 
+		  request.send(); 
+
+
+		  defPok.forEach(function(defPok){
+		  request.onload = function() { 
+		  var urlResponse = request.response;
+
+		  atPok.forEach(function(atPok){
+			  urlResponse.damage_relations.half_damage_from.forEach((test2) => {if (atPok == test2.name) {pokemonDamage = 0.5}})
+			  urlResponse.damage_relations.no_damage_from.forEach((test2) => {if(atPok === test2.name) {pokemonDamage = 0}})
+			  urlResponse.damage_relations.double_damage_from.forEach((test2) => {if(atPok === test2.name) {pokemonDamage = 2}})
+			  totalPokemonDamage += pokemonDamage;
+
+		  })
+
+		callback("Damage multiplier:- " + totalPokemonDamage); 
+
+		  }
+
+		  })
+
+	  }
+	  pokemon2("fire","water",(a)=> console.log(a))
+
+	  //--------------------------------------------------------------------------------------------------------------------------------------
 
 
 	  </script>
 <p> Javascript Exercise 2 </p> 
+<form> 
+<input type="text" name="squarenumber" style="width:50px">
+<input type="button" onclick="squareOfNumber(squarenumber.value)" value="Square number" />
+</form>
+
+<form> 
+<input type="text" name="sum1" style="width:50px">
+<input type="text" name="sum2" style="width:50px">
+<input type="text" name="sum3" style="width:50px">
+<input type="button" onclick="sumOfValues(sum1.value, sum2.value, sum3.value)" value="Sum of 3 numbers" />
+</form>
+
 <form> 
 <input type="button" onclick="increaseAge()" value="Age Increase" />
 </form> 
@@ -295,7 +417,8 @@
 
 <p> Javascript Exercise 6 </p> 
  <form> 
-<input type="button" onclick="reachTarget()" value="Reach Target" />
+<input type="text" name="num1" >
+<input type="button" onclick="reachTarget(num1.value)" value="Reach Target" />
 </form>
 
 <p> Javascript Exercise 7 </p> 
@@ -347,5 +470,18 @@
 <input type="button" onclick="commandInterface(interfaceCommand.value)" value="Submit" />
 </form>
 
+<p> Pokemon Game </p> 
+<form> 
+<input type="text" name="attacker" placeholder="Attacker">
+<input type="text" name="defender" placeholder="Defender">
+<input type="button" onclick="pokemon(attacker.value, defender.value)" value="Run" />
+</form>
+
+<p> Pokemon Game version 2 </p> 
+<form> 
+<input type="text" name="attacker" placeholder="Attacker">
+<input type="text" name="defender" placeholder="Defender">
+<input type="button" onclick="pokemon2(attacker.value, defender.value)" value="Run" />
+</form>
 </body>
 </html>
